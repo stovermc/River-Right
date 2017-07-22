@@ -122,5 +122,29 @@ describe('Server connection', function() {
         done()
       })
     })
+
+    it('DELETES /users/:id', function(done) {
+      const myRequest = this.request
+      myRequest.get('/users', function(error, response, body) {
+        if (error) { done() }
+        const allUsers = JSON.parse(body)
+        assert.equal(allUsers.length, 4)
+
+        myRequest.delete('/users/4', function(error, response, body) {
+          if (error) { done() }
+          const deletedUser = JSON.parse(body)
+          assert.equal(response.statusCode, 200)
+          assert.equal(deletedUser.first_name, 'Scotty')
+          assert.equal(deletedUser.last_name, 'Harry')
+
+          myRequest.get('/users', function(error, response, body) {
+            if (error) { done() }
+            const newAllUsers = JSON.parse(body)
+            assert.equal(newAllUsers.length, 3)
+            done()
+          })
+        })
+      })
+    })
   })
 })
