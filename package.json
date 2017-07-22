@@ -29,6 +29,7 @@
     "cors": "^2.8.4",
     "express": "^4.15.3",
     "knex ": "^0.13.0",
+    "passport": "^0.3.2",
     "pg": "^7.0.1"
   },
   "devDependencies": {
