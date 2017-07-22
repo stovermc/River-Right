@@ -51,5 +51,18 @@ describe('Server connection', function() {
         done()
       })
     })
+
+    it('PUT /groups', function(done) {
+      const newGroup = { name: 'Deschutes'}
+      this.request.put('/groups', { form: newGroup }, function(error, response, body) {
+        if (error) { done() }
+
+        const group = JSON.parse(body)
+        assert.equal(response.statusCode, 200)
+        assert.equal(group.id, 4)
+        assert.equal(group.name, newGroup.name)
+        done()
+      })
+    })
   })
 })
