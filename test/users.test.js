@@ -84,15 +84,41 @@ describe('Server connection', function() {
       })
     })
 
-    it('PUT /users/:id', function(done) {
+    it('updates first and last name PUT /users/:id', function(done) {
       const newName = { first_name: 'Alex', last_name: 'Green' }
       this.request.put('/users/1', { form: newName }, function(error, response, body) {
         if (error) { done() }
 
         const user = JSON.parse(body)
         assert.equal(response.statusCode, 200)
-        assert.equal(user.first_name, 'Mark')
+        assert.equal(user.first_name, newName.first_name)
+        assert.equal(user.last_name, newName.last_name)
+        done()
+      })
+    })
+
+    it('updates first name only: PUT /users/:id', function(done) {
+      const newName = { first_name: 'Alex' }
+      this.request.put('/users/1', { form: newName }, function(error, response, body) {
+        if (error) { done() }
+
+        const user = JSON.parse(body)
+        assert.equal(response.statusCode, 200)
+        assert.equal(user.first_name, newName.first_name)
         assert.equal(user.last_name, 'Stover')
+        done()
+      })
+    })
+
+    it('updates last name only: PUT /users/:id', function(done) {
+      const newName = { last_name: 'Green' }
+      this.request.put('/users/1', { form: newName }, function(error, response, body) {
+        if (error) { done() }
+
+        const user = JSON.parse(body)
+        assert.equal(response.statusCode, 200)
+        assert.equal(user.first_name, 'Mark')
+        assert.equal(user.last_name, newName.last_name)
         done()
       })
     })

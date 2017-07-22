@@ -52,15 +52,27 @@ describe('Server connection', function() {
       })
     })
 
-    it('PUT /groups', function(done) {
+    it('POST /groups', function(done) {
       const newGroup = { name: 'Deschutes'}
-      this.request.put('/groups', { form: newGroup }, function(error, response, body) {
+      this.request.post('/groups', { form: newGroup }, function(error, response, body) {
         if (error) { done() }
 
         const group = JSON.parse(body)
         assert.equal(response.statusCode, 200)
         assert.equal(group.id, 4)
         assert.equal(group.name, newGroup.name)
+        done()
+      })
+    })
+    it('PUT /groups/:id', function(done) {
+      const newGroup = { name: 'Lower Salmon'}
+      this.request.put('/groups/1', { form: newGroup }, function(error, response, body) {
+        if (error) { done() }
+
+        const group = JSON.parse(body)
+        assert.equal(response.statusCode, 200)
+        assert.equal(group.id, 1)
+        assert.equal(group.name, 'Lower Salmon')
         done()
       })
     })
