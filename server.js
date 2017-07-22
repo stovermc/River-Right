@@ -14,4 +14,10 @@ app.listen(port, function() {
 })
 app.use('/api/v1/users', UsersRouter)
 
+// app.post('/login',
+//   passport.authenticate('local'),
+//   (req, res) => {
+//     res.redirect('api/v1/users', UsersRouter)
+//   })
+
 module.exports = app

@@ -73,7 +73,7 @@ describe('Server connection', function() {
     })
 
     it('GET /users/:id', function(done) {
-      this.request.get('/users/2', function(error, response, body) {
+      this.request.get('/users/2', function(error,response, body) {
         if (error) { done() }
 
         const user = JSON.parse(body)
@@ -81,6 +81,17 @@ describe('Server connection', function() {
         assert.equal(user.first_name, 'Lexi')
         assert.equal(user.last_name, 'Brumder')
         done()
+      })
+    })
+
+    it('PUT /users/:id', function(done) {
+      const newName = { first_name: 'Alex', last_name: 'Green' }
+      this.request.put('/users/1', { form: newName }, function(error, response, body) {
+        if (error) { done() }
+
+        const user = JSON.parse(body)
+        assert.equal(response.statusCode, 200)
+        var pry = require('pryjs'); eval(pry.it);
       })
     })
   })
