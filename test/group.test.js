@@ -24,7 +24,7 @@ describe('Server connection', function() {
   })
 
   beforeEach(function(done) {
-    Group.create('Middle Fork of the salmon')
+    Group.create('Middle Fork of the Salmon')
     .then(function() {
       Group.create('Grand Canyon')
       .then(function() {
@@ -64,6 +64,7 @@ describe('Server connection', function() {
         done()
       })
     })
+
     it('PUT /groups/:id', function(done) {
       const newGroup = { name: 'Lower Salmon'}
       this.request.put('/groups/1', { form: newGroup }, function(error, response, body) {
@@ -73,6 +74,18 @@ describe('Server connection', function() {
         assert.equal(response.statusCode, 200)
         assert.equal(group.id, 1)
         assert.equal(group.name, 'Lower Salmon')
+        done()
+      })
+    })
+
+    it('DELETE /groups/:id', function(done) {
+      this.request.delete('/groups/1', function(error, response, body) {
+        if(error) { done() }
+
+        const group = JSON.parse(body)
+        assert.equal(response.statusCode, 200)
+        assert.equal(group.name, 'Middle Fork of the Salmon')
+        assert.equal(group.status, false)
         done()
       })
     })
