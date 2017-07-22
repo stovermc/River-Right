@@ -91,7 +91,9 @@ describe('Server connection', function() {
 
         const user = JSON.parse(body)
         assert.equal(response.statusCode, 200)
-        var pry = require('pryjs'); eval(pry.it);
+        assert.equal(user.first_name, 'Mark')
+        assert.equal(user.last_name, 'Stover')
+        done()
       })
     })
   })
