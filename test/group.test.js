@@ -4,7 +4,7 @@ const configuration = require('../knexfile')[environment]
 const db = require('knex')(configuration)
 const app = require('../server.js')
 const request = require('request')
-const Group = require('../lib/models/user')
+const Group = require('../lib/models/group')
 
 describe('Server connection', function() {
   this.timeout(100000)
@@ -40,15 +40,16 @@ describe('Server connection', function() {
   })
 
   describe('Group endpoints', function() {
-    it('GET /groups', function(done) {
-      this.request.get('/groups', function(error, response, body) {
+    it('GET /groups/:id', function(done) {
+      this.request.get('/groups/2', function(error, response, body) {
         if (error) { done(error) }
 
-        const groups = JSON.parse(body)
+        const group = JSON.parse(body)
         assert.equal(response.statusCode, 200)
-        var pry = require('pryjs'); eval(pry.it);
+        assert.equal(group.id, 2)
+        assert.equal(group.name, 'Grand Canyon')
+        done()
       })
-      done()
     })
   })
 })
