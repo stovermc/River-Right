@@ -5,8 +5,6 @@ const db = require('knex')(configuration)
 const app = require('../server.js')
 const request = require('request')
 const User = require('../lib/models/user')
-process.env.NODE_ENV = 'test'
-// const user = new User
 
 describe('Server connection', function() {
   this.timeout(100000)
@@ -70,6 +68,18 @@ describe('Server connection', function() {
         assert.equal(users[0].last_name, 'Stover')
         assert.equal(users[3].first_name, 'Scotty')
         assert.equal(users[3].last_name, 'Harry')
+        done()
+      })
+    })
+
+    it('GET /users/:id', function(done) {
+      this.request.get('/users/2', function(error, response, body) {
+        if (error) { done() }
+
+        const user = JSON.parse(body)
+        assert.equal(response.statusCode, 200)
+        assert.equal(user.first_name, 'Lexi')
+        assert.equal(user.last_name, 'Brumder')
         done()
       })
     })
