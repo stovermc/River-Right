@@ -12,9 +12,14 @@ app.use(cors({origin: '*'}))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.set('port', port)
-app.listen(port, function() {
+app.listen(port, () => {
   console.log(`Listening in port ${port}`)
 })
+
+app.get('/', (request, response) => {
+  response.send('Welcome to the River Right API!')
+})
+
 app.use('/api/v1/users', UsersRouter)
 app.use('/api/v1/groups', GroupsRouter)
 app.use('/api/v1/groupMembers', GroupMembersRouter)
