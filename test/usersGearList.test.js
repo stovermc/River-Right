@@ -25,7 +25,7 @@ describe('Server connection', function() {
   })
 
   beforeEach(function(done) {
-    UsersGearList.create(1, 2)
+    UsersGearList.create(1, 3)
       .then(function() {
         UsersGearList.create(2, 2)
           .then(function() { done() })
@@ -46,6 +46,18 @@ describe('Server connection', function() {
         assert.equal(response.statusCode, 200)
         assert.equal(addedItem.user_id, 1)
         assert.equal(addedItem.gear_item_id, 3)
+        done()
+      })
+    })
+
+    it('DELETE /usersgearlist/:id', function(done) {
+      this.request.delete('/usersgearlist/1', function(error, response, body) {
+        if (error) { done() }
+
+        const deletedItem = JSON.parse(body)
+        assert.equal(response.statusCode, 200)
+        assert.equal(deletedItem.user_id, 1)
+        assert.equal(deletedItem.gear_item_id, 3)
         done()
       })
     })
