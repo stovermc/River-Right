@@ -5,6 +5,7 @@ const db = require('knex')(configuration)
 const app = require('../server.js')
 const request = require('request')
 const Group = require('../lib/models/group')
+const helper = require('./helpers/emptyTables')
 
 describe('Server connection', function() {
   this.timeout(100000)
@@ -35,7 +36,7 @@ describe('Server connection', function() {
   })
 
   afterEach(function(done) {
-    Group.emptyGroupTable()
+    helper.emptyGroupTable()
     .then(function() { done() })
   })
 
