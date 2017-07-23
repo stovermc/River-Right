@@ -5,6 +5,7 @@ const db = require('knex')(configuration)
 const app = require('../server.js')
 const request = require('request')
 const User = require('../lib/models/user')
+const helper = require('./helpers/emptyTables')
 
 describe('Server connection', function() {
   this.timeout(100000)
@@ -37,9 +38,9 @@ describe('Server connection', function() {
       })
     })
   })
-
+  
   afterEach(function(done) {
-    User.emptyUsersTable()
+    helper.emptyUsersTable()
     .then(function() { done() })
   })
 
@@ -75,7 +76,7 @@ describe('Server connection', function() {
     it('GET /users/:id', function(done) {
       this.request.get('/users/2', function(error,response, body) {
         if (error) { done() }
-        
+
         const user = JSON.parse(body)
         assert.equal(response.statusCode, 200)
         assert.equal(user.first_name, 'Lexi')

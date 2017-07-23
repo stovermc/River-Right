@@ -7,6 +7,7 @@ const request = require('request')
 const GroupMember = require('../lib/models/groupMember')
 const User = require('../lib/models/user')
 const Group = require('../lib/models/group')
+const helper = require('./helpers/emptyTables')
 
 describe('Server connection', function() {
   this.timeout(100000)
@@ -33,7 +34,7 @@ describe('Server connection', function() {
       })
   })
   afterEach(function(done) {
-    GroupMember.emptyGroupMemberTable()
+    helper.emptyGroupMemberTable()
     .then(function() { done() })
   })
 
