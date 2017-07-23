@@ -5,6 +5,8 @@ const cors = require('cors')
 const port = process.env.PORT || 3000
 const UsersRouter = require('./lib/routers/usersRouter')
 const GroupsRouter = require('./lib/routers/groupsRouter')
+const GroupMembersRouter = require('./lib/routers/groupMembersRouter')
+
 app.locals.title = 'River Right'
 app.use(cors({origin: '*'}))
 app.use(bodyParser.json())
@@ -15,6 +17,7 @@ app.listen(port, function() {
 })
 app.use('/api/v1/users', UsersRouter)
 app.use('/api/v1/groups', GroupsRouter)
+app.use('/api/v1/groupMembers', GroupMembersRouter)
 
 // app.post('/login',
 //   passport.authenticate('local'),
