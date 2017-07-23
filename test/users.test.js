@@ -75,7 +75,7 @@ describe('Server connection', function() {
     it('GET /users/:id', function(done) {
       this.request.get('/users/2', function(error,response, body) {
         if (error) { done() }
-
+        
         const user = JSON.parse(body)
         assert.equal(response.statusCode, 200)
         assert.equal(user.first_name, 'Lexi')

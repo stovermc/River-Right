@@ -39,6 +39,7 @@ describe('Server connection', function() {
     .then(function() { done() })
   })
 
+
   describe('Group endpoints', function() {
     it('GET /groups/:id', function(done) {
       this.request.get('/groups/2', function(error, response, body) {
