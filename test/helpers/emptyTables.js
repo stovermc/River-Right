@@ -18,9 +18,22 @@ const emptyUsersGearListTable = () => {
   return db.raw('TRUNCATE users_gear_list RESTART IDENTITY CASCADE')
 }
 
+const createGearType = (category) => {
+  return db.raw(`INSERT INTO gear_type (category, created_at) VALUES(?, ?)
+                 RETURNING id, category`,
+                  [category, new Date])
+}
+
+const emptyGearTypeTable = () => {
+  return db.raw('TRUNCATE users_gear_list RESTART IDENTITY CASCADE')
+}
+
+
 
 module.exports = { emptyUsersTable,
                    emptyGroupTable,
                    emptyGroupMemberTable,
-                   emptyUsersGearListTable
+                   emptyUsersGearListTable,
+                   createGearType,
+                   emptyGearTypeTable
                  }
