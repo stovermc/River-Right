@@ -32,21 +32,21 @@ describe('Server connection', function() {
       })
   })
   afterEach(function(done) {
-    helper.emptyGearTypeTable()
+    helper.emptyGearTypesTable()
     .then(function() { done() })
   })
 
   describe('GearType Endpoints', function() {
     it('GET /geartypes', function(done) {
-      this.request.get('get /geartypes', function(error, response, body) {
+      this.request.get('/geartypes', function(error, response, body) {
         if (error) { done() }
 
         const gearTypes = JSON.parse(body)
         assert.equal(response.statusCode, 200)
         assert.equal(gearTypes[0].category, 'Kitchen')
-        assert.equal(gearTypes[0].category, 'Raft Rig')
+        assert.equal(gearTypes[1].category, 'Raft Rig')
+        done()
       })
-      done()
     })
   })
 })

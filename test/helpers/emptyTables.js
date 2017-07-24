@@ -24,8 +24,8 @@ const createGearType = (category) => {
                   [category, new Date])
 }
 
-const emptyGearTypeTable = () => {
-  return db.raw('TRUNCATE users_gear_list RESTART IDENTITY CASCADE')
+const emptyGearTypesTable = () => {
+  return db.raw('TRUNCATE gear_type RESTART IDENTITY CASCADE')
 }
 
 
@@ -35,5 +35,5 @@ module.exports = { emptyUsersTable,
                    emptyGroupMemberTable,
                    emptyUsersGearListTable,
                    createGearType,
-                   emptyGearTypeTable
+                   emptyGearTypesTable
                  }
