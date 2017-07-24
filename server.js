@@ -2,7 +2,6 @@
                                  DEPENDENCIES
 ------------------------------------------------------------------------------*/
 const express = require('express')
-
 const app = express()
 const bodyParser = require('body-parser')
 const cors = require('cors')
@@ -11,6 +10,7 @@ const UsersRouter = require('./lib/routers/usersRouter')
 const GroupsRouter = require('./lib/routers/groupsRouter')
 const GroupMembersRouter = require('./lib/routers/groupMembersRouter')
 const UsersGearListRouter = require('./lib/routers/usersGearListRouter')
+const GearTypesRouter = require('./lib/routers/gearTypesRouter')
 
 /*------------------------------------------------------------------------------
                             EXPRESS CONFIGURATION
@@ -37,6 +37,7 @@ app.use('/api/v1/users', UsersRouter)
 app.use('/api/v1/groups', GroupsRouter)
 app.use('/api/v1/groupMembers', GroupMembersRouter)
 app.use('/api/v1/usersGearList', UsersGearListRouter)
+app.use('/api/v1/geartypes', GearTypesRouter)
 
 // app.post('/login',
 //   passport.authenticate('local'),
