@@ -5,6 +5,8 @@ const db = require('knex')(configuration)
 const app = require('../server.js')
 const request = require('request')
 const Group = require('../lib/models/group')
+const GroupMember = require('../lib/models/groupMember')
+const User = require('../lib/models/user')
 const helper = require('./helpers/emptyTables')
 
 describe('Server connection', function() {
@@ -30,30 +32,24 @@ describe('Server connection', function() {
       Group.create('Grand Canyon')
       .then(function() {
         Group.create('Lochsa')
-          .then(function() { done () })
+        .then(function() { done () })
       })
     })
   })
 
   afterEach(function(done) {
     helper.emptyGroupTable()
-    .then(function() { done() })
+    .then(function() {
+      helper.emptyUsersTable()
+      .then(function() {
+        helper.emptyGroupMemberTable()
+        .then(function() { done() })
+      })
+    })
   })
 
 
   describe('Group endpoints', function() {
-    it('GET /groups/:id', function(done) {
-      this.request.get('/groups/2', function(error, response, body) {
-        if (error) { done(error) }
-
-        const group = JSON.parse(body)
-        assert.equal(response.statusCode, 200)
-        assert.equal(group.id, 2)
-        assert.equal(group.name, 'Grand Canyon')
-        done()
-      })
-    })
-
     it('POST /groups', function(done) {
       const newGroup = { name: 'Deschutes'}
       this.request.post('/groups', { form: newGroup }, function(error, response, body) {
@@ -89,6 +85,46 @@ describe('Server connection', function() {
         assert.equal(group.name, 'Middle Fork of the Salmon')
         assert.equal(group.status, false)
         done()
+      })
+    })
+
+    it('shows all users in a single group', function(done) {
+      const groupID = 1
+      const myRequest = this.request
+      User.create('Mark', 'Stover')
+      .then(function() {
+        User.create('Lexi', 'Brumder')
+        .then(function() {
+          User.create('Scotty', 'Harry')
+          .then(function() {
+            User.create('Alex', 'Riffle')
+            .then(function() {
+              GroupMember.create(1, groupID)
+              .then(function() {
+                GroupMember.create(2, groupID)
+                .then(function() {
+                  GroupMember.create(3, groupID)
+                  .then(function() {
+                    GroupMember.create(3, 2)
+                    .then(function() {
+
+                      myRequest.get(`/groups/${groupID}`, function(error, response, body) {
+                        if(error) { done() }
+
+                        const groupMembers = JSON.parse(body)
+                        assert.equal(response.statusCode, 200)
+                        assert.equal(groupMembers.length, 3)
+                        // assert.equal(groupMembers[1].first_name, 'Lexi' )
+                        // assert.equal(groupMembers[3].first_name, 'Scotty')
+                        done()
+                      })
+                    })
+                  })
+                })
+              })
+            })
+          })
+        })
       })
     })
   })

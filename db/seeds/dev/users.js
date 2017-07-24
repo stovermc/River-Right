@@ -19,6 +19,11 @@ exports.seed = function(knex, Promise) {
         'INSERT INTO users (first_name, last_name, created_at) VALUES (?, ?, ?)',
         ['Scotty', 'Harry', new Date]
       )
+    }).then(function(){
+      return knex.raw(
+        'INSERT INTO users (first_name, last_name, created_at) VALUES (?, ?, ?)',
+        ['Ellis', 'Bennett', new Date]
+      )
     })
   });
 };
