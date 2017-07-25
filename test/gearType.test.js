@@ -45,24 +45,30 @@ describe('Server connection', function() {
       })
     })
   })
+
   afterEach(function(done) {
     helper.emptyGearTypesTable()
-    .then(function() { done() })
+    .then(function() {
+      helper.emptyUsersTable()
+      .then(function() {
+        helper.emptyUsersGearListTable()
+        .then(function() { done() })
+      })
+    })
   })
 
   describe('GearType Endpoints', function() {
-    // it('GET /geartypes', function(done) {
-    //   this.request.get(`/geartypes`,  function(error, response, body) {
-    //     if (error) { done() }
-    //
-    //     const gearTypes = JSON.parse(body)
-    //     assert.equal(response.statusCode, 200)
-    //     var pry = require('pryjs'); eval(pry.it);
-    //     assert.equal(gearTypes[0].category, 'Kitchen')
-    //     assert.equal(gearTypes[1].category, 'Raft Rig')
-    //     done()
-    //   })
-    // })
+    it('GET /geartypes', function(done) {
+      this.request.get('/geartypes',  function(error, response, body) {
+        if (error) { done() }
+
+        const gearTypes = JSON.parse(body)
+        assert.equal(response.statusCode, 200)
+        assert.equal(gearTypes[0].category, 'Kitchen')
+        assert.equal(gearTypes[1].category, 'Raft Rig')
+        done()
+      })
+    })
 
     it('GET /geartypes', function(done) {
       const userId = 1
@@ -72,7 +78,6 @@ describe('Server connection', function() {
 
         const gearTypes = JSON.parse(body)
         assert.equal(response.statusCode, 200)
-        var pry = require('pryjs'); eval(pry.it);
         assert.equal(gearTypes[0].category, 'Kitchen')
         assert.equal(gearTypes[1].category, 'Raft Rig')
         done()
