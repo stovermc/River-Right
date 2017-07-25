@@ -5,6 +5,8 @@ const db = require('knex')(configuration)
 const app = require('../server.js')
 const request = require('request')
 const GearType = require('../lib/models/gearType')
+const User = require('../lib/models/User')
+const UsersGearList = require('../lib/models/usersGearList')
 const helper = require('./helpers/emptyTables')
 
 describe('Server connection', function() {
@@ -26,19 +28,52 @@ describe('Server connection', function() {
 
   beforeEach(function(done) {
     helper.createGearType('Kitchen')
+    .then(function() {
+      helper.createGearType('Raft Rig')
       .then(function() {
-        helper.createGearType('Raft Rig')
-          .then(function() { done() })
+        User.create('Mark', 'Stover')
+        .then(function() {
+          UsersGearList.create(1, 1)
+          .then(function() {
+            UsersGearList.create(1, 2)
+            .then(function() {
+              UsersGearList.create(1, 3)
+              .then(function() { done() })
+            })
+          })
+        })
       })
+    })
   })
+
   afterEach(function(done) {
     helper.emptyGearTypesTable()
-    .then(function() { done() })
+    .then(function() {
+      helper.emptyUsersTable()
+      .then(function() {
+        helper.emptyUsersGearListTable()
+        .then(function() { done() })
+      })
+    })
   })
 
   describe('GearType Endpoints', function() {
     it('GET /geartypes', function(done) {
-      this.request.get('/geartypes', function(error, response, body) {
+      this.request.get('/geartypes',  function(error, response, body) {
+        if (error) { done() }
+
+        const gearTypes = JSON.parse(body)
+        assert.equal(response.statusCode, 200)
+        assert.equal(gearTypes[0].category, 'Kitchen')
+        assert.equal(gearTypes[1].category, 'Raft Rig')
+        done()
+      })
+    })
+
+    it('GET /geartypes', function(done) {
+      const userId = 1
+      const gearTypeId = 1
+      this.request.get(`/geartypes/${userId}/${gearTypeId}`, function(error, response, body) {
         if (error) { done() }
 
         const gearTypes = JSON.parse(body)
