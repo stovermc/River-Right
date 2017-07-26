@@ -2,27 +2,27 @@ exports.seed = function(knex, Promise) {
   return knex.raw('TRUNCATE users RESTART IDENTITY')
   .then(function() {
     return knex.raw(
-      'INSERT INTO users (first_name, last_name,created_at) VALUES (?, ?, ?)',
-      ['Mark', 'Stover', new Date]
+      'INSERT INTO users (first_name, last_name, email, password, created_at) VALUES (?, ?, ?, ?, ?)',
+      ['Mark', 'Stover', 'stovermc@gmail.com', 'password', new Date]
     ).then(function(){
       return knex.raw(
-        'INSERT INTO users (first_name, last_name, created_at) VALUES (?, ?, ?)',
-        ['Lexi','Brumder', new Date]
+        'INSERT INTO users (first_name, last_name, email, password, created_at) VALUES (?, ?, ?, ?, ?)',
+        ['Lexi','Brumder', 'lexi@gmail.com', 'password', new Date]
       )
     }).then(function(){
       return knex.raw(
-        'INSERT INTO users (first_name, last_name, created_at) VALUES (?, ?, ?)',
-        ['Alex', 'Riffle', new Date]
+        'INSERT INTO users (first_name, last_name, email, password, created_at) VALUES (?, ?, ?, ?, ?)',
+        ['Alex', 'Riffle', 'alex@gmail.com', 'password',new Date]
       )
     }).then(function(){
       return knex.raw(
-        'INSERT INTO users (first_name, last_name, created_at) VALUES (?, ?, ?)',
-        ['Scotty', 'Harry', new Date]
+        'INSERT INTO users (first_name, last_name, email, password, created_at) VALUES (?, ?, ?, ?, ?)',
+        ['Scotty', 'Harry', 'scotty@gmail.com', 'password', new Date]
       )
     }).then(function(){
       return knex.raw(
-        'INSERT INTO users (first_name, last_name, created_at) VALUES (?, ?, ?)',
-        ['Ellis', 'Bennett', new Date]
+        'INSERT INTO users (first_name, last_name, email, password, created_at) VALUES (?, ?, ?, ?, ?)',
+        ['Ellis', 'Bennett', 'ellis@gmail.com', 'password', new Date]
       )
     })
   });
