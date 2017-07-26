@@ -11,6 +11,10 @@ const GroupsRouter = require('./lib/routers/groupsRouter')
 const GroupMembersRouter = require('./lib/routers/groupMembersRouter')
 const UsersGearListRouter = require('./lib/routers/usersGearListRouter')
 const GearTypesRouter = require('./lib/routers/gearTypesRouter')
+const authenticate = require('./lib/helperFunctions/authentication')
+const jwt = require('jsonwebtoken')
+const dotenv = require('dotenv')
+const config = dotenv.config().parsed
 
 /*------------------------------------------------------------------------------
                             EXPRESS CONFIGURATION
@@ -24,6 +28,18 @@ app.set('port', port)
 app.listen(port, () => {
   console.log(`Listening in port ${port}`)
 })
+if (!config.CLIENT_SECRET || !config.USERNAME || !config.PASSWORD) {
+  throw `Make sure you have a CLIENT_SECRET, USERNAME,
+         and PASSWORD in your .env file`
+}
+
+/*------------------------------------------------------------------------------
+                            AUTHENTICATION
+------------------------------------------------------------------------------*/
+app.set('secretKey', config.CLIENT_SECRET)
+
+const authenticateUser = [ authenticate.checkPassword, authenticate.signToken]
+app.post('/authenticate', authenticateUser)
 
 /*------------------------------------------------------------------------------
                                    ROUTES
@@ -45,4 +61,4 @@ app.use('/api/v1/geartypes', GearTypesRouter)
 //     res.redirect('api/v1/users', UsersRouter)
 //   })
 
-module.exports = app
+module.exports = { app }

@@ -4,6 +4,8 @@ exports.up = function(knex, Promise) {
     id SERIAL PRIMARY KEY NOT NULL,
     first_name TEXT,
     last_name TEXT,
+    email TEXT,
+    password TEXT,
     created_at TIMESTAMP
     )`;
     return knex.raw(createQuery)
