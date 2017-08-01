@@ -8,7 +8,7 @@ exports.seed = function(knex, Promise) {
 
     return knex.raw(
       'INSERT INTO users (first_name, last_name, email, password, created_at) VALUES (?, ?, ?, ?, ?)',
-      ['Mark', 'Stover', 'stovermc@gmail.com', hashedPassword, new Date]
+      ['guest', 'rafter', 'guest@gmail.com', hashedPassword, new Date]
     ).then(function(){
       return knex.raw(
         'INSERT INTO users (first_name, last_name, email, password, created_at) VALUES (?, ?, ?, ?, ?)',
