@@ -13,7 +13,7 @@ describe('Server connection', function() {
   this.timeout(100000)
   before(function(done) {
     this.port = 9876
-    this.server = app.listen(this.port, function(error, result) {
+    this.server = app.app.listen(this.port, function(error, result) {
       if (error) { done() }
       done()
     })
@@ -91,13 +91,13 @@ describe('Server connection', function() {
     it('shows all users in a single group', function(done) {
       const groupID = 1
       const myRequest = this.request
-      User.create('Mark', 'Stover')
+      User.create('Mark', 'Stover', 'guest@gmail.com', 'password')
       .then(function() {
-        User.create('Lexi', 'Brumder')
+        User.create('Lexi', 'Brumder', 'lexi@gmail.com', 'password')
         .then(function() {
-          User.create('Scotty', 'Harry')
+          User.create('Scotty', 'Harry', 'scotty@gmail.com', 'password')
           .then(function() {
-            User.create('Alex', 'Riffle')
+            User.create('Alex', 'Riffle', 'alex@gmail.com', 'password')
             .then(function() {
               GroupMember.create(1, groupID)
               .then(function() {
