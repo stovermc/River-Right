@@ -7,12 +7,37 @@ exports.seed = function(knex, Promise) {
     ).then(function(){
       return knex.raw(
         'INSERT INTO gear_items (name, gear_type_id, created_at) VALUES (?, ?, ?)',
+        ['Frame', 1, new Date]
+      )
+    }).then(function(){
+      return knex.raw(
+        'INSERT INTO gear_items (name, gear_type_id, created_at) VALUES (?, ?, ?)',
         ['Dry Box', 1, new Date]
       )
     }).then(function(){
       return knex.raw(
         'INSERT INTO gear_items (name, gear_type_id, created_at) VALUES (?, ?, ?)',
+        ['Cooler', 1, new Date]
+      )
+    }).then(function(){
+      return knex.raw(
+        'INSERT INTO gear_items (name, gear_type_id, created_at) VALUES (?, ?, ?)',
+        ['Oars', 1, new Date]
+      )
+    }).then(function(){
+      return knex.raw(
+        'INSERT INTO gear_items (name, gear_type_id, created_at) VALUES (?, ?, ?)',
         ['Stove', 2, new Date]
+      )
+    }).then(function(){
+      return knex.raw(
+        'INSERT INTO gear_items (name, gear_type_id, created_at) VALUES (?, ?, ?)',
+        ['Blaster', 2, new Date]
+      )
+    }).then(function(){
+      return knex.raw(
+        'INSERT INTO gear_items (name, gear_type_id, created_at) VALUES (?, ?, ?)',
+        ['Propane Tank', 2, new Date]
       )
     }).then(function(){
       return knex.raw(

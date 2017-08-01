@@ -17,6 +17,46 @@ exports.seed = function(knex, Promise) {
     }).then(function(){
       return knex.raw(
         'INSERT INTO users_gear_list (user_id, gear_item_id, created_at) VALUES (?, ?, ?)',
+        [1, 4, new Date]
+      )
+    }).then(function(){
+      return knex.raw(
+        'INSERT INTO users_gear_list (user_id, gear_item_id, created_at) VALUES (?, ?, ?)',
+        [1, 5, new Date]
+      )
+    }).then(function(){
+      return knex.raw(
+        'INSERT INTO users_gear_list (user_id, gear_item_id, created_at) VALUES (?, ?, ?)',
+        [1, 6, new Date]
+      )
+    }).then(function(){
+      return knex.raw(
+        'INSERT INTO users_gear_list (user_id, gear_item_id, created_at) VALUES (?, ?, ?)',
+        [1, 7, new Date]
+      )
+    }).then(function(){
+      return knex.raw(
+        'INSERT INTO users_gear_list (user_id, gear_item_id, created_at) VALUES (?, ?, ?)',
+        [1, 8, new Date]
+      )
+    }).then(function(){
+      return knex.raw(
+        'INSERT INTO users_gear_list (user_id, gear_item_id, created_at) VALUES (?, ?, ?)',
+        [1, 9, new Date]
+      )
+    }).then(function(){
+      return knex.raw(
+        'INSERT INTO users_gear_list (user_id, gear_item_id, created_at) VALUES (?, ?, ?)',
+        [1, 10, new Date]
+      )
+    }).then(function(){
+      return knex.raw(
+        'INSERT INTO users_gear_list (user_id, gear_item_id, created_at) VALUES (?, ?, ?)',
+        [1, 11, new Date]
+      )
+    }).then(function(){
+      return knex.raw(
+        'INSERT INTO users_gear_list (user_id, gear_item_id, created_at) VALUES (?, ?, ?)',
         [2, 4, new Date]
       )
     }).then(function(){
