@@ -13,7 +13,7 @@ describe('Server connection', function() {
   this.timeout(100000)
   before(function(done) {
     this.port = 9876
-    this.server = app.listen(this.port, function(error, result) {
+    this.server = app.app.listen(this.port, function(error, result) {
       if (error) { done() }
       done()
     })
@@ -31,7 +31,7 @@ describe('Server connection', function() {
     .then(function() {
       helper.createGearType('Raft Rig')
       .then(function() {
-        User.create('Mark', 'Stover')
+        User.create('Mark', 'Stover', 'guest', 'password')
         .then(function() {
           UsersGearList.create(1, 1)
           .then(function() {
@@ -78,8 +78,9 @@ describe('Server connection', function() {
 
         const gearTypes = JSON.parse(body)
         assert.equal(response.statusCode, 200)
-        assert.equal(gearTypes[0].category, 'Kitchen')
-        assert.equal(gearTypes[1].category, 'Raft Rig')
+        assert.equal(gearTypes[0].name, 'Raft')
+        assert.equal(gearTypes[1].name, 'Frame')
+        assert.equal(gearTypes[2].name, 'Dry Box')
         done()
       })
     })
