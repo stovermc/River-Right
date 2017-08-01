@@ -55,10 +55,4 @@ app.use('/api/v1/groupMembers', GroupMembersRouter)
 app.use('/api/v1/usersGearList', UsersGearListRouter)
 app.use('/api/v1/geartypes', GearTypesRouter)
 
-// app.post('/login',
-//   passport.authenticate('local'),
-//   (req, res) => {
-//     res.redirect('api/v1/users', UsersRouter)
-//   })
-
-module.exports = { app }
+module.exports =  app
