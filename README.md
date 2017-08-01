@@ -24,9 +24,6 @@ knex migrate:latest --env test
 * Run all tests with `npm test test/*`
 * Specify a test with `npm test test/<test-name>.js`
 
-## Object-relational map
-![Object relational map image](/../screenshots/screenshots/orm-schema.png?raw=true "Object Relational Map Image")
-
 ## API Endpoints
 #### All endpoints are RESTful and all responses are in JSON format. Some important things to note:
 
