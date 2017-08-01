@@ -28,7 +28,7 @@ app.set('port', port)
 app.listen(port, () => {
   console.log(`Listening in port ${port}`)
 })
-if (!process.env.CLIENT_SECRET || !process.env.USERNAME || !process.env.PASSWORD) {
+if (!config.CLIENT_SECRET || !config.USERNAME || !config.PASSWORD) {
   throw `Make sure you have a CLIENT_SECRET, USERNAME,
          and PASSWORD in your .env file`
 }
@@ -36,7 +36,7 @@ if (!process.env.CLIENT_SECRET || !process.env.USERNAME || !process.env.PASSWORD
 /*------------------------------------------------------------------------------
                             AUTHENTICATION
 ------------------------------------------------------------------------------*/
-app.set('secretKey', process.env.CLIENT_SECRET)
+app.set('secretKey', config.CLIENT_SECRET)
 
 const authenticateUser = [ authenticate.checkPassword, authenticate.signToken]
 app.post('/authenticate', authenticateUser)
